@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from jobs.models import Portal, JobDescription
+from jobs.models import Portal, JobDescription, JobTitle
 
 
 class PortalSerializer(serializers.Serializer):
@@ -21,9 +21,10 @@ class JobDescriptionSerializer(serializers.Serializer):
 
     role = serializers.CharField(max_length=250)
     description_text = serializers.CharField(max_length=250)
-    pub_date = serializers.DateTimeField()
+    pub_date = serializers.DateTimeField(required=False)
 
     def create(self, validated_data):
+        # additional checks
         return JobDescription.objects.create(**validated_data)
 
 
@@ -37,8 +38,13 @@ class JobTitleSerializer(serializers.Serializer):
     """
 
     title = serializers.CharField(max_length=250)
-    last_updated = serializers.DateTimeField(required=True)
+    last_updated = serializers.DateTimeField(required=False)
 
     # how to define relationship fields in serializers
     job_description = JobDescriptionSerializer(required=True)
     portal = PortalSerializer(required=True)
+
+    def create(self, validated_data):
+        # additional checks
+        return JobTitle.objects.create(**validated_data)
+
