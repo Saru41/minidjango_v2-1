@@ -39,16 +39,12 @@ def jobtitle_list(request):
         if portal_serializer.is_valid():
             portal_obj = portal_serializer.save()
 
-        breakpoint()
-
         job_title_serializer = JobTitleSerializer(data=data)
         if job_title_serializer.is_valid():
             data["job_description"] = jd_object
             data["portal"] = portal_obj
-            jd_serializer = JobTitleSerializer(data)
+            JobTitle.objects.create(**data)
             breakpoint()
-
-            jd_serializer.save()
 
 
 # TODO portals list
