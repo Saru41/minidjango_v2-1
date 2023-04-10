@@ -44,8 +44,7 @@ def jobtitle_list(request):
             data["job_description"] = jd_object
             data["portal"] = portal_obj
             JobTitle.objects.create(**data)
-            breakpoint()
-
+        return JsonResponse(job_title_serializer.data)
 
 # TODO portals list
 def portal_list(request):
