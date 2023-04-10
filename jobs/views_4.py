@@ -43,8 +43,9 @@ def jobtitle_list(request):
         if job_title_serializer.is_valid():
             data["job_description"] = jd_object
             data["portal"] = portal_obj
-            JobTitle.objects.create(**data)
+            JobTitle.objects.create(**data)   # ORM query to create job title
         return JsonResponse(job_title_serializer.data)
+
 
 # TODO portals list
 def portal_list(request):
